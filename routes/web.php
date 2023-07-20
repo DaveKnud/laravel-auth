@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\LoggedController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('/guest/home', [GuestController::class, 'index'])
+    ->name('guest/index');
+
+Route::get('/logged/home', [LoggedController::class, 'index'])
+    ->middleware('auth')
+    ->name('logged/index');
+
+require __DIR__ . '/auth.php';
